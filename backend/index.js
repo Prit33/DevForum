@@ -48,9 +48,9 @@ dotenv.config();
 // });
 app.use(express.json())
 app.use(cookieParser())
-// app.use(cors({ origin: "https://devforum-g0fi9yayn-prit33.vercel.app/", credentials: true }))
+app.use(cors({ origin: "https://devforum-3tiee5a8e-prit33.vercel.app", credentials: true }))
 
-app.use(cors())
+// app.use(cors())
 
 app.use("/api/auth", authRoute)
 app.use("/api/users", userRoute)
