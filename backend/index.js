@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const cors = require('cors');
 const multer = require('multer')
-const path=require('path')
+const path = require('path')
 
 const cookieParser = require('cookie-parser')
 const authRoute = require('./routes/auth')
@@ -26,14 +26,37 @@ const connectDB = async () => {
 
 // middlewares
 dotenv.config();
+// app.use((req, res, next) => {
+//     res.setHeader(
+//         "Access-Control-Allow-Origin",
+//         "https://devforum-g0fi9yayn-prit33.vercel.app/"
+//     );
+//     res.setHeader(
+//         "Access-Control-Allow-Methods",
+//         "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE"
+//     );
+//     res.setHeader(
+//         "Access-Control-Allow-Headers",
+//         "Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers"
+//     );
+//     res.setHeader("Access-Control-Allow-Credentials", true);
+//     res.setHeader("Access-Control-Allow-Private-Network", true);
+//     //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
+//     res.setHeader("Access-Control-Max-Age", 7200);
+
+//     next();
+// });
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ origin: "https://devforum-oz72h6om2-prit33.vercel.app/", credentials: true }))
+// app.use(cors({ origin: "https://devforum-g0fi9yayn-prit33.vercel.app/", credentials: true }))
+
+app.use(cors())
+
 app.use("/api/auth", authRoute)
 app.use("/api/users", userRoute)
 app.use("/api/posts", postRoute)
 app.use("/api/comments", commentRoute)
-app.use("/images",express.static(path.join(__dirname,"/images")))
+app.use("/images", express.static(path.join(__dirname, "/images")))
 
 
 // //image upload
