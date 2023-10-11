@@ -28,7 +28,7 @@ const connectDB = async () => {
 dotenv.config();
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ origin: "http://localhost:5173", credentials: true }))
+app.use(cors({ origin: "https://devforum-oz72h6om2-prit33.vercel.app/", credentials: true }))
 app.use("/api/auth", authRoute)
 app.use("/api/users", userRoute)
 app.use("/api/posts", postRoute)
