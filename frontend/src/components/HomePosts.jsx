@@ -6,7 +6,7 @@ const HomePosts = ({ post }) => {
     <div className="w-full flex mt-8 space-x-4">
       {/* left */}
       <div className="w-[35%] h-[200px] flex justify-center items-center">
-        <img src={IF+post.photo} alt="image" className='h-full w-full object-cover' />
+        <img src={IF+post.photo} alt="image" className='h-full w-full object-cover rounded-xl' />
       </div>
 
       {/* right */}
@@ -21,7 +21,7 @@ const HomePosts = ({ post }) => {
             <p>{new Date(post.updatedAt).toString().slice(16, 24)}</p>
           </div>
         </div>
-        <p className="text-sm md:text-lg">{post.desc.slice(0, 200) + "...Read more"}</p>
+        <p className="text-sm md:text-lg hover:text-sky-500">{post.desc.slice(0, 200)}  ...Read more</p>
       </div>
     </div>
   )

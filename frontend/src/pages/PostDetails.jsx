@@ -115,7 +115,7 @@ function PostDetails() {
                         <div className="flex justify-center items-center space-x-2">
                             {post.categories?.map((c, i) => (
                                 <>
-                                    <div key={i} className="bg-gray-300 rounded-lg px-3 py-1">{c}</div>
+                                    <div key={i} className="bg-blue-200 rounded-lg px-3 py-1">{c}</div>
                                 </>
                             ))}
                         </div>
@@ -131,8 +131,8 @@ function PostDetails() {
                     </div>
                     {/* write comment */}
                     <div className="w-full flex flex-col mt-4 md:flex-row">
-                        <input onChange={(e) => setComment(e.target.value)} type="text" placeholder="Write a comment" className="md:w-[80%] outline-none py-2 px-4 mt-4 md:mt-0" />
-                        <button onClick={postComment} className="bg-black text-sm text-white px-2 py-2 md:w-[20%] mt-4 md:mt-0">Add Comment</button>
+                        <textarea onChange={(e) => setComment(e.target.value)} type="text" placeholder="Post Answer..." className="md:w-[80%] outline-none rounded-md border-b-2 focus-within:border-blue-400 py-2 px-4 mt-4 md:mt-0" />
+                        <button onClick={postComment} className="bg-black text-sm text-white rounded-md px-2 py-2 md:w-[20%] mt-4 md:mt-0 hover:bg-blue-900">Post Answer</button>
                     </div>
                 </div>}
             <Footer />

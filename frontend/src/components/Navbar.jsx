@@ -20,15 +20,15 @@ function Navbar() {
   }
 
   return (
-    <div className="flex items-center justify-between px-6 md:px-[200px] py-4">
-      <h1 className="text-lg md:text-xl font-extrabold"><Link to="/">Blog Market</Link></h1>
+    <div className="bg-blue-200 flex items-center justify-between px-6 md:px-[200px] py-4">
+      <h1 className="text-lg md:text-xl font-extrabold"><Link to="/">DevForum</Link></h1>
       {path==='/' && <div className="flex justify-center items-center space-x-0">
-        <p onClick={() => navigate(prompt?"?search=" + prompt: navigate("/"))} className='cursor-pointer'><BsSearch /> </p>
-        <input onChange={(e) => setPrompt(e.target.value)} className='outline-none px-3' placeholder='Search a post' type="text" />
+        <input onChange={(e) => setPrompt(e.target.value)} className='outline-none px-3 rounded-full h-8 w-80' placeholder='Search question' type="text" />
+        <p onClick={() => navigate(prompt?"?search=" + prompt: navigate("/"))} className='p-2 cursor-pointer'><BsSearch /> </p>
       </div>}
 
       <div className="hidden md:flex items-center justify-center space-x-2 md:space-x-4">
-        {user ? <h3><Link to="/write">Write</Link></h3> : <h3><Link to="/login">Login</Link></h3>}
+        {user ? <h3 className='hover:text-white'><Link to="/write"><b>Ask</b></Link></h3> : <h3><Link to="/login">Login</Link></h3>}
         {user ? <div onClick={showMenu}>
           <p className="cursor-pointer relative"><FaBars /></p>
           {menu && <Menu />}

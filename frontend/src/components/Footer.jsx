@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+// import { GrGithub } from "react-icons/gr";
 
 function Footer() {
   return (
@@ -7,7 +9,7 @@ function Footer() {
         <div className="flex flex-col text-white">
           <p>Featured Blogs</p>
           <p>Most viewed</p>
-          <p>Readers Choice</p>
+          <p>New Topics</p>
         </div>
 
         <div className="flex flex-col text-white">
@@ -23,7 +25,7 @@ function Footer() {
           <p>Terms of Service</p>
         </div>
       </div>
-      <p className="py-2 pb-6 text-center text-white bg-black text-sm">All rights reserved @Blog Market 2023</p>
+      <p className="py-2 pb-6 text-center text-white bg-black text-sm">Made with ❤️ by  <b className='hover:text-blue-200'><Link to="https://github.com/Prit33"> @Prit</Link></b></p>
     </>
 
   )

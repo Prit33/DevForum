@@ -5,7 +5,7 @@ function ProfilePosts({ p }) {
         <div className="w-full flex mt-8 space-x-4">
             {/* left */}
             <div className="w-[35%] h-[200px] flex justify-center items-center">
-                <img src={IF+p.photo} alt="image" className='h-full w-full object-cover' />
+                <img src={IF+p.photo} alt="image" className='h-full w-full object-cover rounded-xl' />
             </div>
 
             {/* right */}
