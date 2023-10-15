@@ -1,0 +1,3 @@
+# DevForum
+Need to enable cors using extension (available in chrome extension store)
+... will fix soon ... 
