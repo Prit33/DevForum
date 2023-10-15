@@ -5,16 +5,21 @@ import { UserContext } from "../context/UserContext"
 import axios from 'axios'
 import { URL } from "../url"
 
-function Comment({ c, post }) {
+function Comment({ c, post ,fetchPostComments}) {
     const { user } = useContext(UserContext)
+
+    // console.log(user)
 
     const deleteComment = async (id) => {
         try {
-            await axios.delete(URL + '/api/comments/' + id,{withCredentials:true})
+            await axios.delete(URL + '/api/comments/' + id,
+            { headers: { 'Authorization': `${user.token}` } },
+            {withCredentials:true}) // id is postId provided while creating comment
                 .then((res) => {
                     console.log('comment deleted')
                 })
-            window.location.reload(true)
+            // window.location.reload(true)
+            fetchPostComments();
 
         }
         catch (err) {

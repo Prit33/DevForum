@@ -5,6 +5,7 @@ const dotenv = require('dotenv')
 const cors = require('cors');
 const multer = require('multer')
 const path = require('path')
+const bodyParser = require('body-parser');
 
 const cookieParser = require('cookie-parser')
 const authRoute = require('./routes/auth')
@@ -26,11 +27,15 @@ const connectDB = async () => {
 
 // middlewares
 dotenv.config();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
     res.setHeader(
         "Access-Control-Allow-Origin",
-        "https://devforum-g0fi9yayn-prit33.vercel.app/"
+        "http://localhost:5173/"
     );
+    
     res.setHeader(
         "Access-Control-Allow-Methods",
         "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE"
@@ -43,12 +48,20 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Private-Network", true);
     //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
     res.setHeader("Access-Control-Max-Age", 7200);
-
+    
+    // res.setHeader('Set-Cookie', cookie.serialize('token', 'yourCookieValue', {
+    //     sameSite: 'None',
+    //     secure: true, // Ensure the cookie is sent only over HTTPS
+    //     httpOnly: true, // Recommended for security
+    //     maxAge: 3600, // Adjust the max age as needed
+    //     path: '/', // Adjust the path as needed
+    //   }));
     next();
 });
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ origin: "https://devforum-3tiee5a8e-prit33.vercel.app", credentials: true }))
+// app.use(cors({ origin: "http://localhost:5173/", credentials: true }))
+app.use(cors());
 
 // app.use(cors())
 
@@ -77,6 +90,7 @@ app.use("/images", express.static(path.join(__dirname, "/images")))
 //     res.status(200).json("Image has been uploaded!")
 // })
 //image upload
+        
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'images')
@@ -88,7 +102,7 @@ const storage = multer.diskStorage({
 //image upload
 const upload = multer({ storage: storage })
 app.post("/api/upload", upload.single("file"), (req, res) => {
-    // console.log(req.body)
+    console.log(req.body)
     res.status(200).json("Image has been uploaded!")
 })
 

@@ -68,7 +68,8 @@ function EditPost() {
             // newPost.photo = filename;
             // console.log(newPost)
             try {
-                const imgUpload = await axios.post(URL + "/api/upload", data)
+                const imgUpload = await axios.post(URL + "/api/upload", 
+                data)
                 // console.log(imgUpload.data)
             }
             catch (err) {
@@ -77,7 +78,8 @@ function EditPost() {
         }
         // post upload
         try {
-            const res = await axios.put(URL + "/api/posts/" + postId, post, { withCredentials: true })
+            const res = await axios.put(URL + "/api/posts/" + postId, post,
+            { headers: { 'Authorization': `${user.token}` } }, { withCredentials: true })
             // console.log(res.data)
             //  setUpdated(true)
             navigate("/posts/post/" + res.data._id)

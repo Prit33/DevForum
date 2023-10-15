@@ -8,7 +8,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 import axios from 'axios'
-import {URL} from '../url'
+import { URL } from '../url'
 import { useNavigate } from "react-router-dom"
 
 
@@ -18,7 +18,7 @@ function CreatePost() {
     const [desc, setDesc] = useState("")
     const [file, setFile] = useState(null)
 
-    const navigate= useNavigate();
+    const navigate = useNavigate();
     const { user } = useContext(UserContext);
     const [cat, setCat] = useState("")
     const [cats, setCats] = useState([])
@@ -37,6 +37,7 @@ function CreatePost() {
 
     const handleCreate = async (e) => {
         e.preventDefault();
+        // console.log(user)
         const post = {
             title,
             desc,
@@ -52,10 +53,11 @@ function CreatePost() {
             post.photo = filename;
 
             // newPost.photo = filename;
-            // console.log(newPost)
+            // console.log(newPost)    
             try {
-                const imgUpload = await axios.post(URL + "/api/upload",data)
-                console.log(imgUpload.data)
+                const imgUpload = await axios.post(URL + "/api/upload", data)
+                // console.log(imgUpload.data)
+                // console.log(uploaded)
             }
             catch (err) {
                 console.log(err)
@@ -63,7 +65,8 @@ function CreatePost() {
         }
         // post upload
         try {
-            const res = await axios.post(URL + "/api/posts/create", post,{withCredentials:true})
+            const res = await axios.post(URL + "/api/posts/create", post,
+                { headers: { 'Authorization': `${user.token}` } }, { withCredentials: true })
             // console.log(res.data)
             //  setUpdated(true)
             navigate("/posts/post/" + res.data._id)

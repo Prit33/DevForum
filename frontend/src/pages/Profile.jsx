@@ -43,7 +43,8 @@ function Profile() {
         //     }
         // }
         try {
-            const res = await axios.put(URL + "/api/users/" + user._id, { username, email, password }, { withCredentials: true })
+            const res = await axios.put(URL + "/api/users/" + user._id, { username, email, password }, 
+            { headers: { 'Authorization': `${user.token}` } },{ withCredentials: true })
 
             // fetchUserData()
             // console.log(res.data)
@@ -60,7 +61,8 @@ function Profile() {
 
     const handleUserDelete = async () => {
         try {
-            const res = await axios.delete(URL + "/api/users/" + user._id, { withCredentials: true })
+            const res = await axios.delete(URL + "/api/users/" + user._id, 
+            { headers: { 'Authorization': `${user.token}` } },{ withCredentials: true })
             setUser(null)
             navigate("/login")
         } catch (error) {
@@ -122,8 +124,8 @@ function Profile() {
 
 
                         <div className="flex items-center space-x-4 mt-8">
-                            <button onClick={handleUserUpdate} className="text-white font-semibold bg-black px-4 py-2 hover:text-black hover:bg-gray-400">Update</button>
-                            <button onClick={handleUserDelete} className="text-white font-semibold bg-black px-4 py-2 hover:text-black hover:bg-gray-400">Delete</button>
+                            <button onClick={handleUserUpdate} className="text-white font-semibold rounded-xl bg-black px-4 py-2 hover:text-black hover:bg-gray-400">Update</button>
+                            <button onClick={handleUserDelete} className="text-white font-semibold rounded-xl bg-black px-4 py-2 hover:text-black hover:bg-gray-400">Delete</button>
                         </div>
                         {updated && <h3 className="text-green-500 text-sm text-center mt-4">user updated successfully!</h3>}
                     </div>

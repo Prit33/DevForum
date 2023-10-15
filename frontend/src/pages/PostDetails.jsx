@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom'
 
 function PostDetails() {
     const postId = useParams().id;
+    // console.log(postId)
     const [post, setPost] = useState("")
 
     const [comments, setComments] = useState([])
@@ -22,15 +23,17 @@ function PostDetails() {
 
     const navigate = useNavigate();
     const { user } = useContext(UserContext)
+    // console.log(user)
 
     const handleDeletePost = async () => {
         try {
-            const res = await axios.delete(URL + "/api/posts/" + postId, { withCredentials: true })
+            const res = await axios.delete(URL + "/api/posts/" + postId, 
+            { headers: { 'Authorization': `${user.token}` } },{ withCredentials: true })
             // console.log(res.data)
             navigate("/")
         }
-        catch (err) {
-            console.log(err)
+        catch (err){
+            // console.log(err)
         }
     }
 
@@ -64,23 +67,26 @@ function PostDetails() {
             console.log(err)
             // setLoader(true)
         }
+
     }
 
     useEffect(() => {
         fetchPostComments()
+        setComment("")
     }, [postId])
 
     const postComment = async (e) => {
         e.preventDefault();
-        console.log('hello')
+
         try {
+            // console.log(user)
             const res = await axios.post(URL + '/api/comments/create',
                 { comment: comment, author: user.username, postId: postId, userId: user._id },
+                { headers: { 'Authorization': `${user.token}` } },
                 { withCredentials: true })
 
-            // fetchPostComments()
-            // setComment("")
-            window.location.reload(true);
+            fetchPostComments()
+            // window.location.reload(true);
         } catch (error) {
             console.log(error)
         }
@@ -125,7 +131,7 @@ function PostDetails() {
                         <h3 className="mt-6 mb-4 font-semibold">Comments:</h3>
 
                         {comments?.map((c) => (
-                            <Comment key={c._id} c={c} post={post} />
+                            <Comment key={c._id} c={c} post={post} fetchPostComments={fetchPostComments}/>
                         ))}
 
                     </div>

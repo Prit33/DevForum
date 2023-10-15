@@ -4,6 +4,7 @@ import { useContext, useState } from "react"
 import axios from 'axios';
 import {URL} from '../url';
 import { UserContext } from '../context/UserContext';
+import {useCookies} from 'react-cookie';
 
 
 function Login() {
@@ -12,19 +13,24 @@ function Login() {
     const [error, setError] = useState(false)
     const { setUser } = useContext(UserContext)
     const navigate = useNavigate()
+    const [_,setCookies]=useCookies('token');
 
     const handleLogin = async () => {
         try {
+            // console.log(setUser)
             const res = await axios.post(URL + "/api/auth/login", { email, password }, { withCredentials: true })
-            // console.log(res.data)
-            console.log("login successful")
+            // console.log(res.data.token)
+
+            setCookies('token',res.data.token);   //commenting bcoz right now in res theres no token is not gettin passed
+            window.localStorage.setItem('userId',res.data._id);
+
             setUser(res.data)
             navigate("/")
 
         }
         catch (err) {
             setError(true)
-            console.log(err)
+            console.error(err);
 
         }
     }

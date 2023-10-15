@@ -10,7 +10,7 @@ function Menu() {
     const { user } = useContext(UserContext)
     const { setUser } = useContext(UserContext)
     const navigate = useNavigate()
-    
+    // console.log(user)
     const handleLogout = async () => {
         try {
             const res = await axios.get(URL + "/api/auth/logout", { withCredentials: true })
