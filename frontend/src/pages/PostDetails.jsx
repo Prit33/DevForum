@@ -20,6 +20,9 @@ function PostDetails() {
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState("")
     const [loader, setLoader] = useState(false);
+    const [userName,setUserName]=useState("");    
+
+    let [open,setOpen]=useState(true);
 
     const navigate = useNavigate();
     const { user } = useContext(UserContext)
@@ -42,7 +45,9 @@ function PostDetails() {
         try {
             const res = await axios.get(URL + '/api/posts/' + postId)
             // console.log(res.data)
+            // console.log(user)
             setPost(res.data);
+            setUserName(res.data.username);
             setLoader(false);
         }
         catch (err) {
@@ -91,7 +96,13 @@ function PostDetails() {
             console.log(error)
         }
     }
-
+    const handleOpen=()=>{
+        
+        if(user.username===userName && open){
+            setOpen(false)
+            // console.log(open)
+        }
+    }
     return (
         <div>
             <Navbar />
@@ -99,6 +110,10 @@ function PostDetails() {
                 <div className="px-8 md:px-[200px] mt-8">
                     <div className="flex justify-between items-center">
                         <h1 className="text-2xl font-bold text-black md:text-3xl">{post.title}</h1>
+                        {open? <p className='bg-green-200 rounded-lg px-3 py-1 cursor-pointer' onClick={handleOpen}>Open</p>:
+                        <p onClick={()=>setOpen(true)} className='bg-red-200 rounded-lg px-3 py-1' >Closed</p>
+                        }
+                        
                         {user?._id === post.userId && <div className='flex items-center justify-center space-x-2'>
                             <p onClick={() => navigate("/edit/" + postId)} className='text-xl cursor-pointer' ><BiEdit /></p>
                             <p onClick={handleDeletePost} className='text-xl cursor-pointer' ><MdDelete /></p>
