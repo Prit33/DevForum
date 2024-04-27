@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.setHeader(
         "Access-Control-Allow-Origin",
-        "http://localhost:5173/"
+        "*"
     );
     
     res.setHeader(
@@ -48,22 +48,14 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Private-Network", true);
     //  Firefox caps this at 24 hours (86400 seconds). Chromium (starting in v76) caps at 2 hours (7200 seconds). The default value is 5 seconds.
     res.setHeader("Access-Control-Max-Age", 7200);
-    
-    // res.setHeader('Set-Cookie', cookie.serialize('token', 'yourCookieValue', {
-    //     sameSite: 'None',
-    //     secure: true, // Ensure the cookie is sent only over HTTPS
-    //     httpOnly: true, // Recommended for security
-    //     maxAge: 3600, // Adjust the max age as needed
-    //     path: '/', // Adjust the path as needed
-    //   }));
+
     next();
 });
 app.use(express.json())
 app.use(cookieParser())
-// app.use(cors({ origin: "http://localhost:5173/", credentials: true }))
-app.use(cors());
+app.use(cors({ origin: "https://dev-forum-d89af16a2-prit33.vercel.app", credentials: true }))
+// app.use(cors());
 
-// app.use(cors())
 
 app.use("/api/auth", authRoute)
 app.use("/api/users", userRoute)
@@ -90,7 +82,6 @@ app.use("/images", express.static(path.join(__dirname, "/images")))
 //     res.status(200).json("Image has been uploaded!")
 // })
 //image upload
-        
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'images')
